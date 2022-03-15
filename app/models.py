@@ -9,6 +9,9 @@ class Role(db.Model):
     role = db.Column(db.String(60))
     users = db.relationship('User', backref='role')
 
+    def __repr__(self) -> str:
+        return f'USer {self.role}'
+
 
 class User(db.Model):
 
@@ -18,7 +21,7 @@ class User(db.Model):
     username = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullabe=False)
     password = db.Column(db.String(120))
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable = False)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
     likes = db.relationship('Like', backref='user', passive_deletes=True)
 
     def __repr__(self) -> str:
@@ -33,9 +36,12 @@ class Post(db.Model):
     post_title = db.Column(db.String(200))
     post_body = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey(
-        'users.id', ondelete='CASCADE'), nullable = False)
+        'users.id', ondelete='CASCADE'), nullable=False)
     comments = db.relationship('Comment', backref='post', passive_deletes=True)
-    likes = db.relationship('Like', backref='post', passive_deletes = True)
+    likes = db.relationship('Like', backref='post', passive_deletes=True)
+
+    def __repr__(self) -> str:
+        return f'USer {self.post_title}'
 
 
 class Comment(db.Model):
@@ -44,6 +50,8 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.Text, nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey(
+        'posts.id', ondelete='CASCADE'), nullable=False)
 
 
 class Like(db.Model):
