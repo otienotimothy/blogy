@@ -1,1 +1,6 @@
 export SECRET_KEY=599d43a5cfba1ced86ae18d25da9fc3ef8e9dacbccd3eaa338296ea3a8549cde
+export DATABASE_URL=postgresql+psycopg2://moringa:moringa@localhost/blogy
+export FLASK_ENV=development
+export FLASK_APP=manage.py
+
+flask run
