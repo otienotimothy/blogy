@@ -2,10 +2,12 @@ import os
 from flask import Flask;
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_login import LoginManager
 from config import config_options
 
 db = SQLAlchemy()
 migrate = Migrate()
+login_manager = LoginManager()
 
 def create_app():
 
@@ -41,6 +43,14 @@ def create_app():
     from .main.views import views
     app.register_blueprint(auth)
     app.register_blueprint(views)
+
+    # Authenticate User
+    login_manager.init_app(app)
+
+    # Load User Session
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(user_id)
 
     
 

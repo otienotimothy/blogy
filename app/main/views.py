@@ -1,4 +1,3 @@
-from crypt import methods
 from flask import Blueprint, flash, render_template, request
 from app.forms import SubscribeForm
 from app.models import Subscribe

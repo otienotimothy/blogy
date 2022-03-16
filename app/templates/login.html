@@ -9,7 +9,8 @@
           alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form>
+        <form action="" method="POST">
+          {{ form.hidden_tag() }}
           <div class="divider d-flex align-items-center my-4">
             <p class="text-center text-primary fs-2 fw-bold mx-3 mb-0">Login</p>
           </div> 
@@ -66,8 +67,8 @@
 
           <div class="text-center text-lg-start mt-4 pt-2">
             {{ form.submit(class='btn btn-primary btn-lg')}}
-            <p class="small  text-primary fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                class="link-danger">Register</a></p>
+            <p class="small  text-primary fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/signup"
+                class="link-danger"> Sign Up </a></p>
           </div>
 
         </form>
