@@ -30,6 +30,8 @@ def create_app():
 
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
+    from .models import Role, User, Comment, Like, Subscribe
+
     # Initiliase Database
     db.init_app(app)
     migrate.init_app(app, db)

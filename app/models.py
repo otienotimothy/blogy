@@ -18,10 +18,11 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullabe=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
     likes = db.relationship('Like', backref='user', passive_deletes=True)
+    comments = db.relationship('Comment', backref='user', passive_deletes=True)
 
     def __repr__(self) -> str:
         return f'USer {self.username}'
@@ -51,6 +52,8 @@ class Comment(db.Model):
     comment = db.Column(db.Text, nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey(
         'posts.id', ondelete='CASCADE'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'users.id', ondelete='CASCADE'), nullable=False)
 
 
 class Like(db.Model):
@@ -61,7 +64,7 @@ class Like(db.Model):
     liked_by = db.Column(db.Integer, db.ForeignKey(
         'users.id', ondelete='CASCADE'), nullable=False)
     liked_post = db.Column(db.Integer, db.ForeignKey(
-        'post.id', ondelete='CASCADE'), nullable=False)
+        'posts.id', ondelete='CASCADE'), nullable=False)
 
 class Subscribe(db.Model):
 
