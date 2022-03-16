@@ -1,3 +1,4 @@
+from crypt import methods
 from flask import Blueprint, flash, render_template, request
 from app.forms import SubscribeForm
 from app.models import Subscribe
@@ -5,7 +6,7 @@ from app import db
 
 views = Blueprint('views', __name__)
 
-@views.route('/')
+@views.route('/', methods=['GET', 'POST'])
 def index():
     subscribe = SubscribeForm()
 
@@ -14,7 +15,7 @@ def index():
 
         email_exist = Subscribe.query.filter_by(email=email).first()
         if email_exist:
-            flash(f'User with email, {email}, is already subscribed to this service.')
+            flash(f'User with email, {email}, is already subscribed to this service.', 'success')
         else:
             new_subscriber = Subscribe(email=email)
             db.session.add(new_subscriber)

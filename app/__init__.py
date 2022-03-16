@@ -39,7 +39,7 @@ def create_app():
     # Register Blueprint
     from .main.auth import auth
     from .main.views import views
-    app.register_blueprint(auth)
+    app.register_blueprint(auth, url_prefix='/auth')
     app.register_blueprint(views)
 
     

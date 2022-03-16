@@ -54,7 +54,23 @@
 				</div>
 			</div>
 		</nav>
-		<div class="container">{% block content %} {% endblock %}</div>
+		<div class="container">
+			{% with messages = get_flashed_messages(with_categories=True) %} {% if
+			messages %} {% for category, message in messages %}
+			<div
+				class="alert alert-{{category}} alter-dismissible fade show d-flex align-items-center justify-content-between"
+				role="alert"
+			>
+				{{ message }}
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="alert"
+				></button>
+			</div>
+			{% endfor %} {% endif %} {% endwith %}
+			{% block content %} {% endblock %}
+		</div>
 
 		<!-- Bootstrap JS -->
 		<!-- JavaScript Bundle with Popper -->
