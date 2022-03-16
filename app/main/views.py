@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, render_template, request
-from app.forms import SubscribeForm
+from app.forms import SubscribeForm, CommentForm
 from app.models import Subscribe
 from app import db
 
@@ -8,6 +8,7 @@ views = Blueprint('views', __name__)
 @views.route('/', methods=['GET', 'POST'])
 def index():
     subscribe = SubscribeForm()
+    comment_form = CommentForm()
 
     if subscribe.validate_on_submit():
         email = request.form.get('email')
@@ -24,4 +25,4 @@ def index():
 
         subscribe.email.data = " "
 
-    return render_template('index.html', subscribe = subscribe)
+    return render_template('index.html', subscribe = subscribe, form = comment_form)
