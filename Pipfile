@@ -6,10 +6,10 @@ name = "pypi"
 [packages]
 flask = "*"
 flask-migrate = "*"
-flask-sqlalchemy = "*"
 flask-wtf = "*"
 wtforms = {extras = ["email"], version = "*"}
 psycopg2 = "*"
+flask-sqlalchemy = "*"
 
 [dev-packages]
 autopep8 = "*"
