@@ -4,7 +4,22 @@
 	<div class="container-fluid ps-4">
 		<h1 class="display-3">Ideas that Matter</h1>
 		<p class="fs-4">A Catalyst for Bold Action</p>
-        
+		<form action="" method="POST">
+			{{ subscribe.hidden_tag() }}
+			<div class="form-group mt-3">
+				{% if subscribe.email.errors %} 
+                {{ subscribe.email(class='form-control form-control-lg is-invalid') }}
+				<div class="invalid-feedback">
+					{% for error in subscribe.email.errors %}
+					<span> {{error}} </span>
+					{% endfor %}
+				</div>
+				{% else %} {{ subscribe.email(class = 'form-control w-25 d-inline-block') }} 
+                {% endif %}
+                {{ subscribe.submit(class = 'btn btn-dark py-1 mb-1') }}
+			</div>
+		</form>
+        <small class="d-block mt-2">Subscribe to our recieve updates on latest posts</small>
 	</div>
 </header>
 
