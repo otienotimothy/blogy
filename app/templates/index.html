@@ -8,7 +8,7 @@
 			{{ subscribe.hidden_tag() }}
 			<div class="form-group mt-3">
 				{% if subscribe.email.errors %} 
-                {{ subscribe.email(class='form-control form-control-lg is-invalid') }}
+                {{ subscribe.email(class='form-control is-invalid') }}
 				<div class="invalid-feedback">
 					{% for error in subscribe.email.errors %}
 					<span> {{error}} </span>
@@ -16,7 +16,7 @@
 				</div>
 				{% else %} {{ subscribe.email(class = 'form-control w-25 d-inline-block') }} 
                 {% endif %}
-                {{ subscribe.submit(class = 'btn btn-dark py-1 mb-1') }}
+                {{ subscribe.submit(class = 'btn btn-primary py-1 mb-1') }}
 			</div>
 		</form>
         <small class="d-block mt-2">Subscribe to our recieve updates on latest posts</small>
