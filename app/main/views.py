@@ -1,9 +1,27 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, flash, render_template, request
 from app.forms import SubscribeForm
+from app.models import Subscribe
+from app import db
 
 views = Blueprint('views', __name__)
 
 @views.route('/')
 def index():
     subscribe = SubscribeForm()
+
+    if subscribe.validate_on_submit():
+        email = request.form.get('email')
+
+        email_exist = Subscribe.query.filter_by(email=email).first()
+        if email_exist:
+            flash(f'User with email, {email}, is already subscribed to this service.')
+        else:
+            new_subscriber = Subscribe(email=email)
+            db.session.add(new_subscriber)
+            db.session.commit()
+
+            flash('You been successfully subscribed to this service')
+
+        subscribe.email.data = " "
+
     return render_template('index.html', subscribe = subscribe)
