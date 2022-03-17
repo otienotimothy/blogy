@@ -18,13 +18,13 @@ def index():
 
         email_exist = Subscribe.query.filter_by(email=email).first()
         if email_exist:
-            flash(f'User with email, {email}, is already subscribed to this service.', 'success')
+            flash(f'User with email, {email}, is already subscribed to this service.', category='danger')
         else:
             new_subscriber = Subscribe(email=email)
             db.session.add(new_subscriber)
             db.session.commit()
 
-            flash('You been successfully subscribed to this service')
+            flash('You been successfully subscribed to this service', category='success')
 
         subscribe.email.data = " "
 
@@ -35,7 +35,7 @@ def index():
 def add_blog():
     create_blog = BlogForm()
 
-    if create_blog.validate_on_submit:
+    if create_blog.validate_on_submit():
         post_title = request.form.get('title')
         post_content = request.form.get('text')
         new_blog = Post(post_title=post_title, post_body=post_content, user_id=current_user.id )

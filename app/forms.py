@@ -30,7 +30,7 @@ class CommentForm(FlaskForm):
     submit = SubmitField('Comment')
 
 class BlogForm(FlaskForm):
-    title = StringField('Title', validators=[InputRequired(), Length(120)])
+    title = StringField('Title', validators=[InputRequired()])
 
     text = TextAreaField('Blog Content', validators=[InputRequired()], render_kw={'rows':4})
 

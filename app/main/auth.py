@@ -1,6 +1,6 @@
 from flask import Blueprint, flash, render_template, request, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user
+from flask_login import login_user, logout_user
 from app.forms import CreateUserForm, LoginForm
 from app.models import Role, User
 from app import db
@@ -20,9 +20,12 @@ def signup():
         password_hash = generate_password_hash(password)
 
         user_exist = User.query.filter_by(email=email).first()
+        username_exist = User.query.filter_by(username=username).first()
 
         if user_exist:
             flash(f'A User with email, {email}, already exists, login instead', category='danger')
+        elif username_exist:
+            flash(f'The username, {username}, is already being used.', category='danger')
         else:
             user_role = Role.query.filter_by(role='User').first()
             new_user = User(email=email, username=username, password=password_hash, role_id=user_role.id)
@@ -62,11 +65,14 @@ def login():
             else:
                 flash('Invalid Password', category='danger')
         else:
-            flash(f'User with Email, {email}, doesn\'t exist, Sign Up.')
+            flash(f'User with Email, {email}, doesn\'t exist, Sign Up.', category='danger')
 
         user_login.email.data = " "
         user_login.password.data = " "
 
     return render_template('login.html', form = user_login)
 
-
+@auth.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('auth.login'))
