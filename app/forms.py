@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, EmailField, PasswordField, BooleanField, TextAreaField, SubmitField
 from wtforms.validators import Email, InputRequired, Length, EqualTo
 
 class SubscribeForm(FlaskForm):
@@ -28,3 +28,10 @@ class CommentForm(FlaskForm):
     text = StringField('Comment', validators=[InputRequired(), Length(max=200)])
 
     submit = SubmitField('Comment')
+
+class BlogForm(FlaskForm):
+    title = StringField('Title', validators=[InputRequired(), Length(120)])
+
+    text = TextAreaField('Blog Content', validators=[InputRequired()], render_kw={'rows':4})
+
+    submit = SubmitField('Create Blog')

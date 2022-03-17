@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block content %}
+
+<form>
+	{{ form.hidden_tag() }}
+	<div class="divider d-flex align-items-center my-4">
+		<p class="text-center text-primary fs-2 fw-bold mx-3 mb-0">Add Blog</p>
+	</div>
+  <!-- Blog Title -->
+	<div class="form-outline mb-4">
+		<div class="form-outline mb-4">
+			{{ form.title.label(class='form-label text-primary') }} 
+      {% if form.title.errors %} 
+      {{ form.title(class='form-control form-control-lg is-invalid') }}
+			<div class="invalid-feedback">
+				{% for error in form.title.errors %}
+				<span> {{error}} </span>
+				{% endfor %}
+			</div>
+			{% else %} 
+      {{ form.title(class='form-control form-control-lg') }} 
+      {% endif %}
+		</div>
+	</div>
+	<!-- Blog Content -->
+	<div class="form-outline mb-4">
+		{{ form.text.label(class='form-label text-primary') }} 
+    {% if form.text.errors %} 
+    {{ form.text(class='form-control is-invalid') }}
+		<div class="invalid-feedback">
+			{% for error in form.text.errors %}
+			<span> {{error}} </span>
+			{% endfor %}
+		</div>
+		{% else %} 
+    {{ form.text(class='form-control') }} 
+    {% endif%}
+	</div>
+	<!-- Submit button -->
+  {{ form.submit(class='btn btn-primary btn-block mb-4')}}
+</form>
+{% endblock %}
