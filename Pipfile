@@ -11,6 +11,7 @@ wtforms = {extras = ["email"], version = "*"}
 psycopg2 = "*"
 flask-sqlalchemy = "*"
 flask-login = "*"
+gunicorn = "*"
 
 [dev-packages]
 autopep8 = "*"
