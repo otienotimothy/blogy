@@ -10,7 +10,7 @@ views = Blueprint('views', __name__)
 def index():
     subscribe = SubscribeForm()
     comment_form = CommentForm()
-
+    posts = Post.query.all()
     if subscribe.validate_on_submit():
         email = request.form.get('email')
 
@@ -26,7 +26,7 @@ def index():
 
         subscribe.email.data = " "
 
-    return render_template('index.html', subscribe = subscribe, form = comment_form)
+    return render_template('index.html', subscribe = subscribe, form = comment_form, posts=posts)
 
 @views.route('/add_blog', methods=['GET', 'POST'])
 @login_required

@@ -28,68 +28,86 @@
 	<div class="container py-3">
 		<div class="row d-flex justify-content-start">
 			<div class="col-sm-12 col-md-6 col-lg-7">
-				<h2 class="text-primary" > Blog Posts </h2>
-				<div class="card">
-					<div class="card-body">
-						<div class="d-flex flex-start align-items-center">
-							<div>
-								<h6 class="fw-bold text-primary mb-1">Blog Post Title</h6>
-								<p class="text-muted small mb-0">Shared publicly - Jan 2020</p>
-							</div>
-						</div>
-
-						<p class="mt-3 mb-4 pb-2">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam, quis nostrud exercitation ullamco laboris
-							nisi ut aliquip consequat.
-						</p>
-
-						<div class="small d-flex justify-content-start">
-							<a href="#!" class="d-flex align-items-center me-3">
-								<i class="far fa-thumbs-up me-2"></i>
-								<p class="mb-0">Like</p>
-							</a>
-							<a
-								data-bs-toggle="collapse"
-								href="#comments-id"
-								role="button"
-								class="d-flex align-items-center me-3"
-							>
-								<i class="far fa-comment-dots me-2"></i>
-								<p class="mb-0">Comment</p>
-							</a>
-						</div>
-					</div>
-					<div
-						id="comments-id"
-						class="collapse card-footer py-3 border-0"
-						style="background-color: #f8f9fa"
-					>
-						<form action="/comment/id" >
-							<div class="d-flex flex-start w-100">
-								<div class="form-outline w-100">
-									{% if form.text.errors %} {{ form.text(class='form-control
-									form-control-lg is-invalid') }}
-									<div class="invalid-feedback">
-										{% for error in form.text.errors %}
-										<span> {{error}} </span>
-										{% endfor %}
-									</div>
-
-									{% else %} {{ form.text(class='form-control form-control-lg')
-									}} {% endif %}
+				<h2 class="text-primary">Blog Posts</h2>
+				<div>
+					{% if posts %} {% for post in posts %}
+					<div class="card">
+						<div class="card-body">
+							<div class="d-flex flex-start align-items-center">
+								<div>
+									<h6 class="fw-bold text-primary mb-1">
+										{{ post.post_title }}
+									</h6>
+									<p class="text-muted small mb-0">
+										Shared publicly - Jan 2020
+									</p>
 								</div>
 							</div>
-							<div class="float-end mt-2 pt-1">
-								{{ form.submit(class='btn btn-primary btn-sm')}}
+							<p class="mt-3 mb-4 pb-2">{{post.post_body}}</p>
+							<div class="small d-flex justify-content-start">
+								<a href="#!" class="d-flex align-items-center me-3">
+									<i class="far fa-thumbs-up me-2"></i>
+									<p class="mb-0">Like</p>
+								</a>
+								<a
+									data-bs-toggle="collapse"
+									href="#comments-{{post.id}}"
+									role="button"
+									class="d-flex align-items-center me-3"
+								>
+									<i class="far fa-comment-dots me-2"></i>
+									<p class="mb-0">Comment</p>
+								</a>
 							</div>
-						</form>
+						</div>
+						<div
+							id="comments-{{post.id}}"
+							class="collapse card-footer py-3 border-0"
+							style="background-color: #f8f9fa"
+						>
+							<form action="/comment/{{post.id}}" method="POST">
+								<div class="d-flex flex-start w-100">
+									<div class="form-outline w-100">
+										{% if form.text.errors %} {{ form.text(class='form-control
+										form-control-lg is-invalid') }}
+										<div class="invalid-feedback">
+											{% for error in form.text.errors %}
+											<span> {{error}} </span>
+											{% endfor %}
+										</div>
+
+										{% else %} 
+										{{ form.text(class='form-control
+										form-control-lg') }} 
+										{% endif %}
+									</div>
+								</div>
+								<div class="float-end mt-2 pt-1">
+									{{ form.submit(class='btn btn-primary btn-sm')}}
+								</div>
+							</form>
+							<div>
+								{% if post.comments %} {% for comment in post.comments %}
+								<div>
+									<p>
+										<span class="text-primary">{{comment.user.username}}</span>:
+										{{comment.comment}}
+									</p>
+								</div>
+								{% endfor%}
+								{% else %}
+								<p class="text-muted">No Comments</p>
+								{% endif %}
+							</div>
+						</div>
 					</div>
+					{% endfor %} {% else %}
+					<p class="fs-3">No Blog Posts to Display</p>
+					{% endif %}
 				</div>
 			</div>
 			<div class="col-sm-12 col-md-6 col-lg-5">
-				<h2 class="text-primary" > Quotes </h2>
+				<h2 class="text-primary">Quotes</h2>
 			</div>
 		</div>
 	</div>
