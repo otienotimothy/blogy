@@ -25,7 +25,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class CommentForm(FlaskForm):
-    text = StringField('Comment', validators=[InputRequired(), Length(max=200)])
+    text = StringField('Comment', validators=[InputRequired()])
 
     submit = SubmitField('Comment')
 

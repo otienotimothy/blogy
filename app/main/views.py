@@ -45,6 +45,9 @@ def add_blog():
 
         flash(f'Your blog Post, with title, {post_title}, has been created successfully.', category='success')
 
+        create_blog.title.data = " "
+        create_blog.text.data = " "
+
 
     return render_template('create_blog.html', form = create_blog )
 
@@ -60,12 +63,14 @@ def add_comment(post_id):
                 comment = request.form.get('text')
                 new_comment = Comment(comment=comment, post_id=post_id, user_id = current_user.id)
                 db.session.add(new_comment)
-                db.session.comment()
+                db.session.commit()
 
         else:
-            flash('You have Entered Invalid Input')
+            flash('You have Entered Invalid Input', category='danger')
     
     else:
         flash('You need to be logged in to comment on a post', category='danger')
         return redirect(url_for('auth.login'))
+
+    return redirect(url_for('views.index'))
 
