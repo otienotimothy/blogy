@@ -2,12 +2,14 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import login_required, current_user
 from app.forms import SubscribeForm, CommentForm, BlogForm
 from app.models import Subscribe, Post, Comment
+from app.requests import get_quotes
 from app import db
 
 views = Blueprint('views', __name__)
 
 @views.route('/', methods=['GET', 'POST'])
 def index():
+    quote = get_quotes()
     subscribe = SubscribeForm()
     comment_form = CommentForm()
     posts = Post.query.all()
@@ -26,7 +28,7 @@ def index():
 
         subscribe.email.data = " "
 
-    return render_template('index.html', subscribe = subscribe, form = comment_form, posts=posts)
+    return render_template('index.html', subscribe = subscribe, form = comment_form, posts=posts, quote = quote)
 
 @views.route('/add_blog', methods=['GET', 'POST'])
 @login_required
