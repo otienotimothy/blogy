@@ -15,7 +15,7 @@
 Blogy is a web application that enable a user to write, view or comment on blog posts. The user logs into the application to be application to able to comment or write a blog post. The application also provides random quotes for the user during their session browsing the application
 
 ## Links
-- Web Application Link - <> 
+- Web Application Link - <https://flask-blogy.herokuapp.com/> 
 - Project Repository Link - <https://github.com/otienotimothy/blogy.git>
 
 ## Setup/Installation Requirements
